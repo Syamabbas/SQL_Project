@@ -1,4 +1,4 @@
--- Cast fungtion, in this case cast() use for change purchase_price from string to float64
+-- Cast function, in this case cast() use for change purchase_price from string to float64
 SELECT 
 	CAST(purchase_price AS FLOAT)
 FROM 
