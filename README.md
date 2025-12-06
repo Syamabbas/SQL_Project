@@ -1,23 +1,20 @@
 <img alt="BK" src="https://github.com/Syamabbas/SQL_Project/blob/a2a0c12531874380f01ea3fd4aca42bc8acfbae2/scripts/Presentation1.jpg">
+<H1> Performance Sales Analysis </H1>
+
 This project highlights how SQL can be applied to analyze end-to-end sales performance in an e-commerce environment. I explored the database structure, calculated key business metrics, and performed time-based, cumulative, and segmentation analyses to generate actionable insights.
+</br>
 
-🔍 **What I Worked On** </br>
-• 🗂️ **Database Exploration** – understanding table structures & relationships using INFORMATION_SCHEMA </br>
+<H3>What I Worked On</H3>
+
+• 🗂️ **Database Exploration** </br>
+understanding table structures & relationships using INFORMATION_SCHEMA </br>
+Purpose: </br>
+    - To explore the structure of the database, including the list of tables and their schemas. </br>
+    - To inspect the columns and metadata for specific tables. </br>
+Table Used: </br>
+    - INFORMATION_SCHEMA.TABLES </br>
+    - INFORMATION_SCHEMA.COLUMNS </br>
 ```
-/*
-===============================================================================
-Database Exploration
-===============================================================================
-Purpose:
-    - To explore the structure of the database, including the list of tables and their schemas.
-    - To inspect the columns and metadata for specific tables.
-
-Table Used:
-    - INFORMATION_SCHEMA.TABLES
-    - INFORMATION_SCHEMA.COLUMNS
-===============================================================================
-*/
-
 -- Retrieve a list of all tables in the database
 SELECT 
     TABLE_CATALOG, 
@@ -36,23 +33,17 @@ FROM INFORMATION_SCHEMA.COLUMNS
 WHERE TABLE_NAME = 'dim_customers';
 ```
 Result: </br>
-<img alt="BK" src="https://github.com/Syamabbas/SQL_Project/blob/a2a0c12531874380f01ea3fd4aca42bc8acfbae2/scripts/Presentation1.jpg">
+<img src="Image/1 Database exploration.jpg" alt="Result" width="500"/>
 
-• 🔎 **Dimension & Date Analysis** – identifying data ranges and exploring dimensional tables </br>
-```
-/*
-===============================================================================
-Dimensions Exploration
-===============================================================================
-Purpose:
-    - To explore the structure of dimension tables.
+• 🔎 **Dimension & Date Analysis** </br>
+identifying data ranges and exploring dimensional tables </br>
+Purpose: </br>
+    - To explore the structure of dimension tables. </br>
 	
-SQL Functions Used:
-    - DISTINCT
-    - ORDER BY
-===============================================================================
-*/
-
+SQL Functions Used: </br>
+    - DISTINCT </br>
+    - ORDER BY </br>
+```
 -- Retrieve a list of unique countries from which customers originate
 SELECT DISTINCT 
     country 
@@ -68,22 +59,16 @@ FROM gold.dim_products
 ORDER BY category, subcategory, product_name;
 ```
 Result: </br>
-<img alt="BK" src="https://github.com/Syamabbas/SQL_Project/blob/a2a0c12531874380f01ea3fd4aca42bc8acfbae2/scripts/Presentation1.jpg">
-• 📏 **Measures & Magnitude** – calculating total sales, order counts, AOV, and other core KPIs </br>
+<img src="Image/2 Dimension.jpg" alt="Result" width="500"/>
+
+• 📏 **Measures & Magnitude** </br> 
+calculating total sales, order counts, AOV, and other core KPIs </br>
+Purpose: </br>
+    - To calculate aggregated metrics (e.g., totals, averages) for quick insights. </br>
+    - To identify overall trends or spot anomalies. </br>
+SQL Functions Used: </br>
+    - COUNT(), SUM(), AVG() </br>
 ```
-/*
-===============================================================================
-Measures Exploration (Key Metrics)
-===============================================================================
-Purpose:
-    - To calculate aggregated metrics (e.g., totals, averages) for quick insights.
-    - To identify overall trends or spot anomalies.
-
-SQL Functions Used:
-    - COUNT(), SUM(), AVG()
-===============================================================================
-*/
-
 -- Find the Total Sales
 SELECT SUM(sales_amount) AS total_sales FROM gold.fact_sales
 
@@ -120,23 +105,18 @@ UNION ALL
 SELECT 'Total Customers', COUNT(customer_key) FROM gold.dim_customers;
 ```
 Result: </br>
-<img alt="BK" src="https://github.com/Syamabbas/SQL_Project/blob/a2a0c12531874380f01ea3fd4aca42bc8acfbae2/scripts/Presentation1.jpg">
-• 🏆 **Ranking Analysis** – identifying top products, top customers, and best-selling categories </br>
+<img src="Image/3 Measures.jpg" alt="Result" width="500"/> </br>
+
+• 🏆 **Ranking Analysis** </br>
+identifying top products, top customers, and best-selling categories </br>
+Purpose: </br>
+    - To rank items (e.g., products, customers) based on performance or other metrics. </br>
+    - To identify top performers or laggards. </br>
+
+SQL Functions Used: </br>
+    - Window Ranking Functions: RANK(), DENSE_RANK(), ROW_NUMBER(), TOP </br>
+    - Clauses: GROUP BY, ORDER BY </br>
 ```
-/*
-===============================================================================
-Ranking Analysis
-===============================================================================
-Purpose:
-    - To rank items (e.g., products, customers) based on performance or other metrics.
-    - To identify top performers or laggards.
-
-SQL Functions Used:
-    - Window Ranking Functions: RANK(), DENSE_RANK(), ROW_NUMBER(), TOP
-    - Clauses: GROUP BY, ORDER BY
-===============================================================================
-*/
-
 -- Which 5 products Generating the Highest Revenue?
 -- Simple Ranking
 SELECT TOP 5
@@ -203,24 +183,18 @@ GROUP BY
 ORDER BY total_orders ;
 ```
 Result: </br>
-<img alt="BK" src="https://github.com/Syamabbas/SQL_Project/blob/a2a0c12531874380f01ea3fd4aca42bc8acfbae2/scripts/Presentation1.jpg">
-• 📈 **Change Over Time** – analyzing trends, growth patterns, and seasonality </br>
+<img src="Image/4 Ranking analysis.jpg" alt="Result" width="500"/> </br>
+
+• 📈 **Change Over Time** </br>
+analyzing trends, growth patterns, and seasonality </br>
+Purpose: </br>
+    - To track trends, growth, and changes in key metrics over time. </br>
+    - For time-series analysis and identifying seasonality. </br>
+    - To measure growth or decline over specific periods. </br>
+SQL Functions Used: </br>
+    - Date Functions: DATEPART(), DATETRUNC(), FORMAT() </br>
+    - Aggregate Functions: SUM(), COUNT(), AVG() </br>
 ```
-/*
-===============================================================================
-Change Over Time Analysis
-===============================================================================
-Purpose:
-    - To track trends, growth, and changes in key metrics over time.
-    - For time-series analysis and identifying seasonality.
-    - To measure growth or decline over specific periods.
-
-SQL Functions Used:
-    - Date Functions: DATEPART(), DATETRUNC(), FORMAT()
-    - Aggregate Functions: SUM(), COUNT(), AVG()
-===============================================================================
-*/
-
 -- Analyse sales performance over time
 -- Quick Date Functions
 SELECT
@@ -257,23 +231,17 @@ GROUP BY FORMAT(order_date, 'yyyy-MMM')
 ORDER BY FORMAT(order_date, 'yyyy-MMM');
 ```
 Result: </br>
-<img alt="BK" src="https://github.com/Syamabbas/SQL_Project/blob/a2a0c12531874380f01ea3fd4aca42bc8acfbae2/scripts/Presentation1.jpg">
-• 🔁 **Cumulative Analysis** – running totals, moving averages, and long-term performance tracking </br>
+<img src="Image/5 Change over time.jpg" alt="Result" width="500"/> </br>
+
+• 🔁 **Cumulative Analysis** </br>
+running totals, moving averages, and long-term performance tracking </br>
+Purpose: </br>
+    - To calculate running totals or moving averages for key metrics. </br>
+    - To track performance over time cumulatively. </br>
+    - Useful for growth analysis or identifying long-term trends. </br>
+SQL Functions Used: </br>
+    - Window Functions: SUM() OVER(), AVG() OVER() </br>
 ```
-/*
-===============================================================================
-Cumulative Analysis
-===============================================================================
-Purpose:
-    - To calculate running totals or moving averages for key metrics.
-    - To track performance over time cumulatively.
-    - Useful for growth analysis or identifying long-term trends.
-
-SQL Functions Used:
-    - Window Functions: SUM() OVER(), AVG() OVER()
-===============================================================================
-*/
-
 -- Calculate the total sales per month 
 -- and the running total of sales over time 
 SELECT
@@ -293,23 +261,17 @@ FROM
 ) t
 ```
 Result: </br>
-<img alt="BK" src="https://github.com/Syamabbas/SQL_Project/blob/a2a0c12531874380f01ea3fd4aca42bc8acfbae2/scripts/Presentation1.jpg">
-• 🎯 **Data Segmentation** – customer segmentation (VIP, Regular, New) and age-based grouping </br>
+<img src="Image/5 Change over time.jpg" alt="Result" width="500"/> </br>
+
+• 🎯 **Data Segmentation** </br>
+customer segmentation (VIP, Regular, New) and age-based grouping </br>
+Purpose: </br>
+    - To group data into meaningful categories for targeted insights. </br>
+    - For customer segmentation, product categorization, or regional analysis. </br>
+SQL Functions Used: </br>
+    - CASE: Defines custom segmentation logic. </br>
+    - GROUP BY: Groups data into segments. </br>
 ```
-/*
-===============================================================================
-Data Segmentation Analysis
-===============================================================================
-Purpose:
-    - To group data into meaningful categories for targeted insights.
-    - For customer segmentation, product categorization, or regional analysis.
-
-SQL Functions Used:
-    - CASE: Defines custom segmentation logic.
-    - GROUP BY: Groups data into segments.
-===============================================================================
-*/
-
 /*Segment products into cost ranges and 
 count how many products fall into each segment*/
 WITH product_segments AS (
@@ -367,32 +329,26 @@ GROUP BY customer_segment
 ORDER BY total_customers DESC;
 ```
 Result: </br>
-<img alt="BK" src="https://github.com/Syamabbas/SQL_Project/blob/a2a0c12531874380f01ea3fd4aca42bc8acfbae2/scripts/Presentation1.jpg">
-• 📊 **Performance Reporting** – compiling KPIs such as recency, total sales, quantity purchased, lifespan, and average monthly spend </br>
+<img src="Image/7 Data Segmentation.jpg" alt="Result" width="500"/> </br>
+
+• 📊 **Performance Reporting** </br>
+compiling KPIs such as recency, total sales, quantity purchased, lifespan, and average monthly spend </br>
+Purpose: </br>
+    - This report consolidates key customer metrics and behaviors </br>
+Highlights: </br>
+    1. Gathers essential fields such as names, ages, and transaction details. </br>
+	2. Segments customers into categories (VIP, Regular, New) and age groups. </br>
+    3. Aggregates customer-level metrics: </br>
+	   - total orders </br>
+	   - total sales </br>
+	   - total quantity purchased </br>
+	   - total products </br>
+	   - lifespan (in months) </br>
+    4. Calculates valuable KPIs: </br>
+	    - recency (months since last order) </br>
+		- average order value </br>
+		- average monthly spend </br>
 ```
-/*
-===============================================================================
-Customer Report
-===============================================================================
-Purpose:
-    - This report consolidates key customer metrics and behaviors
-
-Highlights:
-    1. Gathers essential fields such as names, ages, and transaction details.
-	2. Segments customers into categories (VIP, Regular, New) and age groups.
-    3. Aggregates customer-level metrics:
-	   - total orders
-	   - total sales
-	   - total quantity purchased
-	   - total products
-	   - lifespan (in months)
-    4. Calculates valuable KPIs:
-	    - recency (months since last order)
-		- average order value
-		- average monthly spend
-===============================================================================
-*/
-
 -- =============================================================================
 -- Create Report: gold.report_customers
 -- =============================================================================
@@ -478,7 +434,8 @@ END AS avg_monthly_spend
 FROM customer_aggregation
 ```
 Result: </br>
-<img alt="BK" src="https://github.com/Syamabbas/SQL_Project/blob/a2a0c12531874380f01ea3fd4aca42bc8acfbae2/scripts/Presentation1.jpg">
+<img src="Image/11 Gold Report Customers.jpg" alt="Result" width="500"/> </br>
+<img src="Image/11 Gold Report Product.jpg" alt="Result" width="500"/> </br>
 
 💡 This project reflects my skills in: </br>
 • SQL query writing </br>
